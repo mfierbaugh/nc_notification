@@ -6,4 +6,6 @@ This is a simple python script to subscribe to NETCONF Notifications
 pip install -r requirements.txt
 
 ## Usage:
-usage: nc_notification.py [-h] -d DEVICE -u USERNAME -p PASSWORD# nc_notification
+usage: nc_notification.py [-h] -d DEVICE -u USERNAME -p PASSWORD
+
+
