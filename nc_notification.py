@@ -1,13 +1,25 @@
 #! /usr/bin/env python3
 #
-import ncclient.manager, argparse, signal, sys
+import ncclient.manager, argparse, signal, sys, logging
 
 parser = argparse.ArgumentParser(description='nc_notification.py: subscribe to netconf notifications')
 parser.add_argument('-d','--device', help='Device Hostname',required=True)
 parser.add_argument('-u','--username',help='Device Username', required=True)
 parser.add_argument('-p','--password',help='Device Password', required=True)
+parser.add_argument('-v', '--verbose', action='store_true',
+                        help="Exceedingly verbose logging to the console")
+
 #parser.add_argument('-f','--filter',help='xpath filter', required=True)
+
 args = parser.parse_args()
+
+if args.verbose:
+        handler = logging.StreamHandler()
+        # for l in ['ncclient.transport.session', 'ncclient.operations.rpc']:
+        for l in ['ncclient.transport.ssh', 'ncclient.transport.session', 'ncclient.operations.rpc']:
+            logger = logging.getLogger(l)
+            logger.addHandler(handler)
+            logger.setLevel(logging.DEBUG)
 
 username = args.username
 password = args.password
